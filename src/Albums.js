@@ -1,8 +1,9 @@
 import axios from 'axios';
 import React, {Component} from 'react';
-import './App.css';
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import Album from './Album';
+import Paper from '@material-ui/core/Paper';
+import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
 
 export default class Albums extends Component {
   constructor(props) {
@@ -81,25 +82,33 @@ const RenderAlbums = props => {
   return (
     <React.Fragment>
       <div>
+      <Grid container spacing={24}>
         {!props.isLoading ? (
           props.albums.map(album => {
             const { artistName, albumName, artwork, albumId } = album;
             return (
-              <div key={albumName}>
-                <div>
-                  <p>{albumName}</p>
-                  <img src={artwork} alt={artistName}/>
-                </div>
-                <div>
-                  <button onClick={props.handleClick} id={albumId}>View Tracklist</button>
-                </div>
-                <hr />
-              </div>
+              <Grid item xs={3}>
+                <Paper align="center">
+                  <div key={albumName}>
+                    <div>
+                      <Typography variant="subtitle1" align="center" gutterBottom>
+                        {albumName}
+                        </Typography>
+                      <img src={artwork} alt={artistName}/>
+                    </div>
+                    <div>
+                      <button onClick={props.handleClick} id={albumId}>View Tracklist</button>
+                    </div>
+                    <hr />
+                  </div>
+                </Paper>
+              </Grid>
             );
           })
         ) : (
         <p>Loading...</p>
         )}
+        </Grid>
       </div>
     </React.Fragment>
   );
