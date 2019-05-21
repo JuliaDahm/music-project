@@ -1,9 +1,9 @@
 import axios from 'axios';
 import React, {Component} from 'react';
-import './App.css';
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import Song from './Song';
-import Sound from 'react-sound';
+import Paper from '@material-ui/core/Paper';
+import Grid from '@material-ui/core/Grid';
+import playIcon from './playIcon.svg';
 
 export default class Album extends Component {
   constructor(props) {
@@ -57,9 +57,10 @@ export default class Album extends Component {
     });
   }
 
+
   render() {
     const { tracks, isLoading, songToPlay, playSong } = this.state;
-    // const albumName = tracks[0].albumName
+    console.log(`tracks: ${tracks}`);
     let element;
     if (playSong) {
       element = <Song url={songToPlay} volume={10} />
@@ -67,24 +68,32 @@ export default class Album extends Component {
     return (
       <React.Fragment>
         {/* <h3>{albumName}</h3> */}
-        <div>
-          {!isLoading ? (
-            tracks.map(track => {
-              const { trackName, previewUrl } = track;
-              return (
-                <div key={trackName}>
-                  <h3>{trackName}</h3>
-                  <button onClick={this.handleClick} id={previewUrl}>
-                    Preview Track
-                    {element}
-                  </button>
-                  <hr />
-                </div>
-              );
-            })
-          ) : (
-          <p>Loading...</p>
-          )}
+        <div align='center'>
+          <Grid container spacing={0} direction='column' alignItems='center' justify='center'>
+            <Paper align='center'>
+              {!isLoading ? (
+                tracks.map(track => {
+                  const { trackName, previewUrl } = track;
+                  return (
+                    <Grid item xs={12}>
+                      <div key={trackName}>
+                        <h3>{trackName}</h3>
+                        <Grid item xs={12}>
+                        <button>
+                         <img onClick={this.handleClick} id={previewUrl} src={playIcon} alt='play icon'/>
+                          {element}
+                        </button>
+                        </Grid>
+                        <hr />
+                      </div>
+                    </Grid>
+                  );
+                })
+              ) : (
+              <p>Loading...</p>
+              )}
+            </Paper>
+          </Grid>
         </div>
       </React.Fragment>
     );
