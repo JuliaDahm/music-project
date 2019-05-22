@@ -1,4 +1,3 @@
-import axios from 'axios';
 import React, {Component} from 'react';
 import Album from './Album';
 import Paper from '@material-ui/core/Paper';
@@ -6,28 +5,28 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 
 export default class Albums extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      showAlbum: false,
-      albumToShow: ''
-    };
-    // this.handleClick = this.handleClick.bind(this);
+  // constructor(props) {
+  //   super(props);
+  //   // this.handleClick = this.handleClick.bind(this);
+  // }
+
+  handleClick(event) {
+    this.props.handleAlbum(event.target.id)
   }
 
   render() {
-    const { albums, isLoading, showAlbum, albumToShow } = this.props;
     let element;
-    if (showAlbum) {
-      element = <Album id={albumToShow} />;
+    if (this.props.showAlbum) {
+      element = <Album tracks={this.props.tracks} />;
     } else {
-      element = <RenderAlbums isLoading={isLoading} albums={albums} handleClick={this.handleClick} />;
+      element = <RenderAlbums isLoading={this.props.isLoading} albums={this.props.albums} handleClick={this.handleClick} />;
     }
     return (
       <div>{element}</div>
     )
   }
 }
+
 
 const RenderAlbums = props => {
   return (
@@ -48,7 +47,7 @@ const RenderAlbums = props => {
                       <img src={artwork} alt={artistName}/>
                     </div>
                     <div>
-                      <button id={albumId}>View Tracklist</button>
+                      <button onClick={props.handleClick} id={albumId}>View Tracklist</button>
                     </div>
                     <hr />
                   </div>
