@@ -26,7 +26,7 @@ export default class Albums extends Component {
             return (
               <Grid item xs={3}>
                 <Paper align="center">
-                  <div key={albumName}>
+                  <div key={albumId}>
                     <div>
                       <Typography variant="subtitle1" align="center" gutterBottom>
                         {albumName}
