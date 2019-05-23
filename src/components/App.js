@@ -56,6 +56,7 @@ export default class App extends Component {
         trackName: `${track.trackName}`,
         previewUrl: `${track.previewUrl}`,
         albumName: `${track.collectionName}`,
+        artwork: `${track.artworkUrl100}`,
       }));
     }
     musicArr.shift();
